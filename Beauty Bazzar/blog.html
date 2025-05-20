@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Beauty Bazzar Blog</title>
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fdfdf9;
+      color: #333;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin: 2rem 0 1rem;
+      color: #2e5939;
+    }
+
+    .products, .blog-grid {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      padding: 1rem 2rem;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 1rem;
+      width: 250px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card img {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .card h4 {
+      margin: 0.5rem 0;
+      color: #1b3d2f;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .btn {
+      background: #2e7d32;
+      color: white;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background: #256428;
+    }
+
+    .banner {
+      background: url('C:/Users/kuben/OneDrive/Desktop/Beauty Bazzar/images/roman-dolgikh-KXmk9cPdvp0-unsplash.jpg') no-repeat center center/cover;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 3rem 0;
+    }
+
+    .banner h1 {
+      color: white;
+      font-size: 2rem;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 1rem 2rem;
+      border-radius: 10px;
+    }
+
+    footer {
+      background: #1b3d2f;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Featured Products -->
+  <section data-aos="fade-up">
+    <h2>Featured Products</h2>
+    <div class="products">
+      <div class="card">
+        <img src="images/n25.webp" alt="Aloe Vera">
+        <h4>Organic Aloe Vera Gel</h4>
+        <p>$12.00</p>
+        <button class="btn">Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="images/detox-tea.jpg" alt="Detox Tea">
+        <h4>Herbal Detox Tea</h4>
+        <p>$15.00</p>
+        <button class="btn">Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="images/neem-cleanser.jpg" alt="Cleanser">
+        <h4>Neem & Tulsi Cleanser</h4>
+        <p>$15.00</p>
+        <button class="btn">Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="images/detox-tea.jpg" alt="Detox Tea">
+        <h4>Herbal Detox Tea</h4>
+        <p>$15.00</p>
+        <button class="btn">Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="images/detox-tea.jpg" alt="Detox Tea">
+        <h4>Herbal Detox Tea</h4>
+        <p>$15.00</p>
+        <button class="btn">Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="images/detox-tea.jpg" alt="Detox Tea">
+        <h4>Herbal Detox Tea</h4>
+        <p>$15.00</p>
+        <button class="btn">Add to Cart</button>
+      </div>
+      <div class="card">
+        <img src="images/detox-tea.jpg" alt="Detox Tea">
+        <h4>Herbal Detox Tea</h4>
+        <p>$15.00</p>
+        <button class="btn">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Banner -->
+  <div class="banner" data-aos="fade">
+    <h1>Beauty Begins in Nature</h1>
+  </div>
+
+  <!-- Latest Blog Posts -->
+  <section data-aos="fade-up">
+    <h2>Latest Blog Posts</h2>
+    <div class="blog-grid">
+      <div class="card">
+        <img src="images/n25.webp" alt="Tips">
+        <h4>Tips for Glowing Skin Naturally</h4>
+        <p>Learn the top natural skincare tips for achieving radiant and healthy skin.</p>
+        <a href="blog-post1.html" class="btn">Read More</a>
+      </div>
+      <div class="card">
+        <img src="images/detox-tea.jpg" alt="Tea">
+        <h4>Benefits of Herbal Teas for Health</h4>
+        <p>Discover the various health benefits of incorporating herbal teas into your routine.</p>
+        <a href="blog-tea.html" class="btn">Read More</a>
+      </div>
+      <div class="card">
+        <img src="images/organic-skincare.jpg" alt="Skincare">
+        <h4>DIY Organic Skincare Recipes</h4>
+        <p>Explore easy and effective DIY skincare recipes using 100% organic ingredients.</p>
+        <a href="blog-diy.html" class="btn">Read More</a>
+      
+      </div>
+      <div class="card">
+        <img src="images/n25.webp" alt="Tips">
+        <h4>Tips for Glowing Skin Naturally</h4>
+        <p>Learn the top natural skincare tips for achieving radiant and healthy skin.</p>
+        <a href="blog-post1.html" class="btn">Read More</a>
+      </div>
+      <div class="card">
+        <img src="images/n25.webp" alt="Tips">
+        <h4>Tips for Glowing Skin Naturally</h4>
+        <p>Learn the top natural skincare tips for achieving radiant and healthy skin.</p>
+        <a href="blog-post1.html" class="btn">Read More</a>
+      </div>
+      <div class="card">
+        <img src="images/n25.webp" alt="Tips">
+        <h4>Tips for Glowing Skin Naturally</h4>
+        <p>Learn the top natural skincare tips for achieving radiant and healthy skin.</p>
+        <a href="blog-post1.html" class="btn">Read More</a>
+      </div>
+      <div class="card">
+        <img src="images/n25.webp" alt="Tips">
+        <h4>Tips for Glowing Skin Naturally</h4>
+        <p>Learn the top natural skincare tips for achieving radiant and healthy skin.</p>
+        <a href="blog-post1.html" class="btn">Read More</a>
+      </div>
+      
+    </div>
+    
+  </section>
+
+  <footer>
+    &copy; 2025 Beauty Bazzar. All rights reserved.
+  </footer>
+
+  <!-- AOS Animation Script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init();</script>
+</body>
+</html>

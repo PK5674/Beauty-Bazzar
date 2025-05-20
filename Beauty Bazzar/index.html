@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Beauty Bazzar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Inter&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    h1, h2, h3 {
+      font-family: 'Playfair Display', serif;
+    }
+    #slider{
+        background-image: url('images/n3.jpg');
+        
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+
+
+    .login-btn {
+      padding: 10px 20px;
+      background: rgb(103, 180, 103);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 99;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #fff;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 400px;
+      padding: 30px;
+      text-align: center;
+      position: relative;
+    }
+
+    .modal-content h2 {
+      color: rgb(103, 180, 103);
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+
+    .tabs button {
+      
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      color:rgb(103, 180, 103);
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .tabs button.active {
+      background:rgb(103, 180, 103);
+      color: #fff;
+    }
+
+    .form-group {
+      margin: 15px 0;
+    }
+
+    .form-group input {
+      width: 80%;
+      padding: 10px;
+      border: 1px solid #aaa;
+      border-radius: 6px;
+    }
+
+    .form-group button {
+      background-color:rgb(103, 180, 103);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .social-login {
+      margin-top: 20px;
+    }
+
+    .social-login img {
+      width: 32px;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px; right: 20px;
+      font-size: 24px;
+      color: #333;
+      cursor: pointer;
+    }
+
+    .form {
+      display: none;
+    }
+
+    .form.active {
+      display: block;
+    }
+
+    .popular-category img {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.popular-category img:hover {
+  transform: scale(1.1);
+}
+
+.trending-products img {
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.trending-products img:hover {
+  transform: scale(1.05); /* slightly smaller zoom than categories */
+}
+
+
+
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+
+  <!-- Top Banner -->
+  <div class="bg-green-100 text-green-900 text-center py-2 text-sm">
+    Get 10% off your first order using the coupon code <strong>LOVE10</strong> during checkout
+  </div>
+
+  <!-- Navbar -->
+<header class="flex items-center justify-between px-6 py-4 shadow">
+  <div class="text-xl font-bold text-green-900">Cozy.</div>
+
+  <nav class="space-x-4 text-sm">
+    <a href="#" class="hover:text-green-700">Home</a>
+    <a href="#" class="hover:text-green-700">Shop</a>
+    <a href="#" class="hover:text-green-700">Pages</a>
+    <a href="blog.html" class="hover:text-green-700">Blog</a>
+    <a href="#" class="hover:text-green-700">Look Book</a>
+  </nav>
+
+  <div class="space-x-3 text-sm flex items-center">
+    <!-- Add to Cart (Icon with Count) -->
+    <a href="cart.html" class="relative flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-800 hover:text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2 9m13-9l2 9m-5-6h-4" />
+      </svg>
+      <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">0</span>
+    </a>
+
+    <!-- "Add to Cart" Button -->
+   
+
+    <div class="flex items-center space-x-4">
+      <!-- Search Icon -->
+      <button id="openSearch" class="text-gray-800 hover:text-green-600">
+        <i class="fas fa-search"></i>
+      </button>
+      
+    </div>
+  </nav>
+  
+  <!-- Search Bar -->
+  <div id="searchBarContainer" class="fixed top-0 left-0 w-full bg-gray-100 z-50 transform -translate-y-full transition-transform duration-300 ease-in-out">
+    <div class="container mx-auto p-4">
+      <div class="flex justify-center items-center">
+        <input type="text" placeholder="Search products..." class="w-3/4 p-2 rounded shadow border border-gray-300 focus:outline-none focus:ring">
+        <button id="closeSearch" class="ml-4 text-red-500 font-bold">X</button>
+      </div>
+  
+      <!-- Trending Products Section -->
+      <div id="trendingProducts" class="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <div class="bg-white p-4 rounded shadow">Facial Cleanser</div>
+        <div class="bg-white p-4 rounded shadow">Hair oil</div>
+        <div class="bg-white p-4 rounded shadow">Cooling Gel</div>
+        <div class="bg-white p-4 rounded shadow">Lip Care</div>
+      </div>
+    </div>
+  </div>
+
+    <!-- English and Login -->
+     
+    | <a href="#"> English</a>
+    | <button id="openModalBtn" class="login-btn bg-green-700 text-white px-3 py-1 rounded">Login</button>
+  </div>
+</header>
+
+    </div>
+  </header>
+
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Welcome to Beauty Bazaar</h2>
+    <div class="tabs">
+      
+      <button class="tab-btn active" data-target="loginForm">Login</button>
+      <button class="tab-btn" data-target="signupForm">Signup</button>
+    </div>
+
+    <!-- Login Form -->
+    <div id="loginForm" class="form active">
+      <div class="form-group">
+        <input type="text" placeholder="Email / Username" required>
+      </div>
+      <div class="form-group">
+        <input type="password" placeholder="Password" required>
+      </div>
+      <div class="form-group">
+        <button>Login</button>
+      </div>
+    </div>
+
+    <!-- Signup Form -->
+    <div id="signupForm" class="form">
+      <div class="form-group">
+        <input type="text" placeholder="Full Name" required>
+      </div>
+      <div class="form-group">
+        <input type="email" placeholder="Email" required>
+      </div>
+      <div class="form-group">
+        <input type="password" placeholder="Create Password" required>
+      </div>
+      <div class="form-group">
+        <button>Signup</button>
+      </div>
+    </div>
+
+    
+  </div>
+</div>
+  <!-- Hero Section -->
+  <!-- Hero Section with Sliding Background -->
+<section class="relative w-full h-[500px] flex items-center justify-center text-white overflow-hidden">
+    <!-- Background Images -->
+    <div id="slider" class="absolute inset-0  bg-center bg-cover transition-all duration-1000 z-10"></div>
+  
+    <!-- Static Text Content -->
+    <div class="relative z-10 text-center px-6">
+      <h1 class="text-3xl md:text-5xl font-bold mb-4">Natural Skincare Daily Routine</h1>
+      <p class="text-lg mb-6">Products that harness the power of 100% natural</p>
+      <button class="bg-green-800 px-6 py-2 rounded hover:bg-green-700">Shop Now</button>
+    </div>
+  
+    <!-- Optional Overlay for Softness -->
+    <div class="absolute inset-0 bg-black opacity-30 z-0"></div>
+  </section>
+  
+  <!-- Slider Script -->
+  <script>
+    const slider = document.getElementById("slider");
+    const images = [
+      "images/n1.jpg",
+      "images/n2.jpg"
+    ];
+  
+    let index = 0;
+  
+    function changeBackground() {
+        console.log("changing to:",images[index]);//debug line
+      slider.style.backgroundImage = url('${images[index]}');
+      index = (index + 1) % images.length;
+    }
+  
+    changeBackground(); // Set initial
+    setInterval(changeBackground, 5000); // Change every 5 seconds
+  </script>
+
+
+<!--categories-->
+
+<section class="py-12 px-6 text-center">
+  <h2 class="text-2xl font-bold mb-8">Popular Categories</h2>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+    <div>
+      <a href="bio herbal.html">
+        <img class="rounded-full w-28 h-28 mx-auto transition-transform duration-300 hover:scale-110" src="images/n4.jpg" alt="">
+        <p class="mt-2">Bio-Herbal</p>
+      </a>
+    </div>
+    <div>
+      <a href="body-lotion.html">
+        <img class="rounded-full w-28 h-28 mx-auto transition-transform duration-300 hover:scale-110" src="images/n5.jpg" alt="">
+        <p class="mt-2">Body-Lotion</p>
+      </a>
+    </div>
+    <div>
+      <a href="candle-spa.html">
+        <img class="rounded-full w-28 h-28 mx-auto transition-transform duration-300 hover:scale-110" src="images/n6.jpg" alt="">
+        <p class="mt-2">Candle-Spa</p>
+      </a>
+    </div>
+    <div>
+      <a href="skin-care.html">
+        <img class="rounded-full w-28 h-28 mx-auto transition-transform duration-300 hover:scale-110" src="images/n7.jpg" alt="">
+        <p class="mt-2">Skin-Care</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+
+  <!-- Featured Collection -->
+  <section class="py-16 px-6 grid md:grid-cols-2 gap-10 bg-gray-50">
+    <div>
+      <img src="images/n8.jpg" class="rounded-lg shadow-lg transition-transform duration-500 hover:scale-105" alt="">
+
+
+    </div>
+    <div class="flex flex-col justify-center">
+      <h3 class="text-gray-500 uppercase mb-2">Best of Collection 2022</h3>
+      <h2 class="text-3xl font-bold mb-4">Discover a Best of the Best world of Herbal</h2>
+      <p class="text-gray-600 mb-6">Our company announced a new tagline and manifesto to enhance our dedication to fostering belonging among all clients.</p>
+      <button 
+  onclick="window.location.href='best-of-collection-2022.html'"
+  class="bg-green-800 text-white px-6 py-2 rounded hover:bg-green-700">
+  Read More
+</button>
+
+    </div>
+  </section>
+
+  <!-- Trending Products -->
+  <section class="py-16 px-6 text-center trending-products">
+
+    <h2 class="text-xl mb-4 font-semibold">Trending Products</h2>
+    <p class="mb-10 text-gray-600">Having a place set aside for an activity you love makes it more likely you’ll do it.</p>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+      <div class="product-card">
+        <a href="cleanser.html" class="block text-center">
+          <img src="images/n9.jpg" alt="Facial Cleanser" class="mx-auto mb-2">
+          <h3>In Two Minds Facial Cleanser</h3>
+        </a>
+        
+        
+      </div>
+      
+      <div>
+        <img src="images/n10.jpg" class="w-full h-40 object-contain mb-2" alt="">
+        <h3 class="font-medium">Shampoo</h3>
+        
+      </div>
+      <div>
+        <img src="images/n11.jpg" class="w-full h-40 object-contain mb-2" alt="">
+        <h3 class="font-medium">Conditioner</h3>
+        
+      </div>
+      <div>
+        <img src="images/n12.jpg" class="w-full h-40 object-contain mb-2" alt="">
+        <h3 class="font-medium">Hair Serum</h3>
+        
+      </div>
+      <div>
+        <img src="images/n13.jpg" class="w-full h-40 object-contain mb-2" alt="">
+        <h3 class="font-medium">Face Pack</h3>
+       
+      </div>
+      <div>
+        <img src="images/n14.jpg" class="w-full h-40 object-contain mb-2" alt="">
+        <h3 class="font-medium">kumkumadhi tailam</h3>
+       
+      </div>
+      <div>
+        <img src="images/n15.jpg" class="w-full h-40 object-contain mb-2" alt="">
+        <h3 class="font-medium">cooling gel</h3>
+       
+      </div>
+      <div>
+        <img src="images/n16.jpg" class="w-full h-40 object-contain mb-2" alt="">
+        <h3 class="font-medium">Hair oil</h3>
+       
+      </div>
+      <div>
+        <img src="images/n17.jpg" class="w-full h-40 object-contain mb-2" alt="">
+        <h3 class="font-medium">bath Powder</h3>
+        
+      </div>
+      <div>
+        <img src="images/n18.jpg" class="w-full h-40 object-contain mb-2" alt="">
+        <h3 class="font-medium">lip Care</h3>
+        
+      </div>
+      <div>
+        <img src="images/n19.jpg" class="w-full h-40 object-contain mb-2" alt="">
+        <h3 class="font-medium">Face Elixir</h3>
+        
+      </div>
+      <div>
+        <img src="images/n20.jpg" class="w-full h-40 object-contain mb-2" alt="">
+        <h3 class="font-medium">Soaps</h3>
+       
+      </div>
+    </div>
+  </section>
+
+  <title>Contact Us </title>
+  <style>
+    .fade-in {
+      animation: fadeIn 1.2s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+
+  <section class="min-h-screen flex items-center justify-center p-6 bg-gray-50">
+    <div class="bg-white shadow-xl rounded-xl p-10 w-full max-w-xl fade-in relative">
+      <h2 class="text-3xl font-bold text-green-800 text-center mb-6">Contact Us</h2>
+
+      <!-- Form -->
+      <form id="contactForm" class="space-y-4">
+        <input type="text" placeholder="Your Name" required class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-300" />
+        <input type="email" placeholder="Your Email" required class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-green-300" />
+        <textarea placeholder="Your Message" required class="w-full p-3 border border-gray-300 rounded h-32 focus:outline-none focus:ring-2 focus:ring-green-300"></textarea>
+
+        <div class="text-center">
+          <button type="submit" class="bg-green-700 text-white px-6 py-2 rounded-lg hover:bg-green-800 transition duration-300">Send</button>
+        </div>
+      </form>
+
+      <!-- Toast -->
+      <div id="toast" class="hidden absolute top-4 left-1/2 transform -translate-x-1/2 bg-green-600 text-white px-4 py-2 rounded shadow-lg">
+        Message sent successfully!
+      </div>
+
+      <!-- Contact Icons -->
+      <div class="mt-8 flex justify-center space-x-8 text-center">
+        <!-- WhatsApp -->
+        <a href="https://wa.me/8667458118" target="_blank" class="flex flex-col items-center text-green-700 hover:text-green-900">
+          <img src="https://img.icons8.com/color/48/whatsapp--v1.png" class="w-10 h-10" alt="WhatsApp" />
+          <span class="mt-1 text-sm">WhatsApp</span>
+        </a>
+
+        <!-- Phone -->
+        <a href="tel:+918939205504" class="flex flex-col items-center text-green-700 hover:text-green-900">
+          <img src="https://img.icons8.com/color/48/phone--v1.png" class="w-10 h-10" alt="Call Us" />
+          <span class="mt-1 text-sm">Call Us</span>
+        </a>
+      </div>
+    </div>
+  </section>
+  </body>
+
+  <!-- JavaScript -->
+  <script>
+    const form = document.getElementById('contactForm');
+    const toast = document.getElementById('toast');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent actual form submission
+
+      // Show toast
+      toast.classList.remove('hidden');
+      
+      // Hide toast after 3 seconds
+      setTimeout(() => {
+        toast.classList.add('hidden');
+        form.reset(); // Clear form
+      }, 3000);
+    });
+
+   const modal = document.getElementById("loginModal");
+  const openBtn = document.getElementById("openModalBtn");
+  const closeBtn = document.querySelector(".close");
+  const tabBtns = document.querySelectorAll(".tab-btn");
+  const forms = document.querySelectorAll(".form");
+
+  openBtn.onclick = () => modal.style.display = "flex";
+  closeBtn.onclick = () => modal.style.display = "none";
+  window.onclick = (e) => {
+    if (e.target == modal) modal.style.display = "none";
+  };
+
+  tabBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      tabBtns.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      forms.forEach(form => form.classList.remove("active"));
+      document.getElementById(btn.getAttribute("data-target")).classList.add("active");
+    });
+  });
+
+  
+  
+  function addToCart(name, price) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push({ name, price });
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    alert(name + " added to cart!");
+  }
+
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    document.getElementById("cart-count").textContent = cart.length;
+  }
+
+  // Call on page load
+  updateCartCount();
+
+  
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  function addToCart(productName, price) {
+    const existingProduct = cart.find(item => item.name === productName);
+    
+    if (existingProduct) {
+      existingProduct.quantity += 1;
+    } else {
+      cart.push({ name: productName, price: price, quantity: 1 });
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+    updateCartCount();
+  }
+
+  function updateCartCount() {
+    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById("cart-count").textContent = count;
+  }
+
+  // Initialize cart count on page load
+  updateCartCount();
+
+  function addToCart(name, price) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push({ name, price });
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    alert(name + " added to cart!");
+  }
+
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    document.getElementById("cart-count").textContent = cart.length;
+  }
+
+  // Call on page load
+  updateCartCount();
+
+ 
+    
+
+    
+  
+  const openSearchBtn = document.getElementById("openSearch");
+  const closeSearchBtn = document.getElementById("closeSearch");
+  const searchBarContainer = document.getElementById("searchBarContainer");
+
+  openSearchBtn.addEventListener("click", () => {
+    searchBarContainer.classList.remove("-translate-y-full");
+  });
+
+  closeSearchBtn.addEventListener("click", () => {
+    searchBarContainer.classList.add("-translate-y-full");
+  });
+
+
+
+
+  </script>
+  
+  
+ 
+
+</body>
+</html>

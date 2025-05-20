@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Cleansers</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+
+  <h1 class="text-3xl font-bold mb-6 text-center">Facial Cleansers</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+    <!-- Product 1 -->
+    <div class="bg-white rounded shadow p-4">
+      <img src="images/n21.jpg" alt="Cleanser 1" class="w-full h-48 object-cover mb-4">
+      <h2 class="text-xl font-semibold">Gentle Facial Cleanser</h2>
+      <p class="text-gray-700 mb-2">₹199</p>
+      <button onclick="addToCart('Gentle Facial Cleanser', 199, 'images/n21.jpg')" class="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-600">Add to Cart</button>
+    </div>
+
+    <!-- Product 2 -->
+    <div class="bg-white rounded shadow p-4">
+      <img src="images/n22.jpg" alt="Cleanser 2" class="w-full h-48 object-cover mb-4">
+      <h2 class="text-xl font-semibold">Herbal Deep Cleanser</h2>
+      <p class="text-gray-700 mb-2">₹249</p>
+      <button onclick="addToCart('Herbal Deep Cleanser', 249, 'images/n22.jpg')" class="bg-green-700 text-white px-4 py-2 rounded hover:bg-green-600">Add to Cart</button>
+    </div>
+
+    <!-- Add more cleansers similarly -->
+  </div>
+
+  <script>
+    function addToCart(name, price, image) {
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const existing = cart.find(item => item.name === name);
+
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ name, price, image, quantity: 1 });
+      }
+
+      localStorage.setItem('cart', JSON.stringify(cart));
+      alert(name + " added to cart!");
+    }
+  </script>
+</body>
+</html>

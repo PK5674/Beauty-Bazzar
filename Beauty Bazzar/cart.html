@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Cart</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <!-- Header -->
+  <header class="bg-white shadow">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">MyShop</h1>
+      <a href="cart.html" class="relative">
+        <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.35 2.7a1 1 0 00.9 1.5h12.1m-12.1 0A1.5 1.5 0 106.5 21a1.5 1.5 0 001.5-1.5m9 0a1.5 1.5 0 101.5 1.5 1.5 1.5 0 00-1.5-1.5" />
+        </svg>
+        <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 rounded-full">0</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="container mx-auto p-6">
+    <h2 class="text-3xl font-bold mb-6">Shopping Cart</h2>
+
+    <div id="cart-container" class="space-y-4"></div>
+
+    <div class="mt-6 border-t pt-4 text-xl font-semibold">
+      <p>Total Items: <span id="total-items">0</span></p>
+      <p>Grand Total: $<span id="grand-total">0.00</span></p>
+    </div>
+
+    <div class="mt-6">
+      <a href="products.html" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">Continue Shopping</a>
+    </div>
+  </main>
+
+  
+
+  <!-- Script -->
+  <script>
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    function renderCart() {
+      const container = document.getElementById("cart-container");
+      const totalItems = document.getElementById("total-items");
+      const grandTotal = document.getElementById("grand-total");
+
+      container.innerHTML = "";
+      let totalQuantity = 0;
+      let totalPrice = 0;
+
+      if (cart.length === 0) {
+        container.innerHTML = "<p>Your cart is empty.</p>";
+        totalItems.textContent = 0;
+        grandTotal.textContent = "0.00";
+        return;
+      }
+
+      cart.forEach((item, index) => {
+        totalQuantity += item.quantity;
+        totalPrice += item.quantity * item.price;
+
+        const itemElement = document.createElement("div");
+        itemElement.className = "bg-white p-4 rounded shadow";
+
+        itemElement.innerHTML = `
+          <div class="flex justify-between items-center">
+            <div>
+              <h2 class="font-semibold text-lg">${item.name}</h2>
+              <p>Price: $${item.price}</p>
+              <div class="flex items-center mt-2 space-x-2">
+                <button onclick="decreaseQuantity(${index})" class="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300">−</button>
+                <span>${item.quantity}</span>
+                <button onclick="increaseQuantity(${index})" class="px-2 py-1 bg-gray-200 rounded hover:bg-gray-300">+</button>
+              </div>
+              <p class="mt-2">Subtotal: $${(item.price * item.quantity).toFixed(2)}</p>
+            </div>
+            <button onclick="removeItem(${index})" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">Remove</button>
+          </div>
+        `;
+
+        container.appendChild(itemElement);
+      });
+
+      totalItems.textContent = totalQuantity;
+      grandTotal.textContent = totalPrice.toFixed(2);
+      updateCartCount();
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      updateCart();
+    }
+
+    function increaseQuantity(index) {
+      cart[index].quantity += 1;
+      updateCart();
+    }
+
+    function decreaseQuantity(index) {
+      if (cart[index].quantity > 1) {
+        cart[index].quantity -= 1;
+        updateCart();
+      }
+    }
+
+    function updateCart() {
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    }
+
+    function updateCartCount() {
+      const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const countElement = document.getElementById("cart-count");
+      if (countElement) countElement.textContent = count;
+    }
+
+    renderCart();
+  </script>
+</body>
+</html>

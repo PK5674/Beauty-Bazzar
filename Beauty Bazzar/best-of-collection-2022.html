@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Best of Collection | Beauty Bazzar</title>
+ <style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f2f7f4;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+
+  header {
+    background: #2e7d32;
+    color: white;
+    padding: 1.5rem;
+  }
+
+  .collection-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 2rem;
+  }
+
+  .product-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-10px);
+  }
+
+  .product-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+
+  .product-content {
+    padding: 1rem;
+  }
+
+  .product-content h3 {
+    margin: 0.5rem 0;
+  }
+
+  .product-content p {
+    font-size: 0.9rem;
+    color: #555;
+  }
+
+  .see-more {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #2e7d32;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .stats-section {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+    gap: 2rem;
+  }
+
+  .stat-box {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  .newsletter-popup {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    z-index: 999;
+    display: block;
+  }
+
+  .popup-content input {
+    padding: 0.5rem;
+    margin-top: 10px;
+    width: 80%;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+
+  .popup-content button {
+    margin-top: 10px;
+    padding: 0.5rem 1rem;
+    background: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 5px;
+  }
+
+  .testimonial-carousel {
+    background: #d0ead6;
+    padding: 3rem 1rem;
+    position: relative;
+  }
+
+  .carousel {
+    max-width: 500px;
+    margin: auto;
+    position: relative;
+  }
+
+  .slide {
+    display: none;
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  .slide.active {
+    display: block;
+  }
+
+  button.prev, button.next {
+    background: #2e7d32;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .prev { left: -40px; }
+  .next { right: -40px; }
+ </style>
+ <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"/>
+</head>
+<body>
+
+<header data-aos="fade-down">
+  <h1>Beauty Bazzar: Best of 2022 Collection</h1>
+  <p>Discover our handpicked favorites from our organic skincare range</p>
+</header>
+
+<section class="collection-section">
+  <div class="product-card" data-aos="fade-up">
+    <img src="images/n10.jpg" alt="Face Cream">
+    <div class="product-content">
+      <h3>Herbal Glow Cream</h3>
+      <p>Nourish your skin naturally with essential herbs and vitamins</p>
+      <span class="see-more">→ See More</span>
+    </div>
+  </div>
+  <div class="product-card" data-aos="fade-up">
+    <img src="images/n11.jpg" alt="Serum">
+    <div class="product-content">
+      <h3>Botanical Face Serum</h3>
+      <p>Hydrates deeply and restores youthful glow using plant power</p>
+      <span class="see-more">→ See More</span>
+    </div>
+  </div>
+  <div class="product-card" data-aos="fade-up">
+    <img src="images/n13.jpg" alt="Soap">
+    <div class="product-content">
+      <h3>Natural Soap Bar</h3>
+      <p>Handmade with essential oils to refresh and rejuvenate</p>
+      <span class="see-more">→ See More</span>
+    </div>
+  </div>
+</section>
+
+<section class="stats-section">
+  <div class="stat-box" data-aos="zoom-in">
+    <h2><span class="counter" data-target="100">0</span>%</h2>
+    <p>Organic Ingredients</p>
+  </div>
+  <div class="stat-box" data-aos="zoom-in">
+    <h2><span class="counter" data-target="5000">0</span>+</h2>
+    <p>Happy Customers</p>
+  </div>
+</section>
+
+<div class="newsletter-popup" id="newsletterPopup" data-aos="fade-up">
+  <div class="popup-content">
+    <h3>Join Our Beauty Bazzar Family 💕</h3>
+    <p>Subscribe for the latest organic beauty tips & discounts</p>
+    <input type="email" placeholder="Enter your email"/>
+    <button onclick="closePopup()">Subscribe</button>
+  </div>
+</div>
+
+<section class="testimonial-carousel" data-aos="fade-up">
+  <h2>What Our Customers Say</h2>
+  <div class="carousel">
+    <div class="slide active">
+      <p>"These products transformed my skin!"</p>
+      <h4>Emma Johnson</h4>
+    </div>
+    <div class="slide">
+      <p>"Truly a game changer in organic skincare."</p>
+      <h4>Jason Martin</h4>
+    </div>
+    <div class="slide">
+      <p>"Best organic products I’ve used!"</p>
+      <h4>Olivia Brown</h4>
+    </div>
+    <button class="prev" onclick="prevSlide()">‹</button>
+    <button class="next" onclick="nextSlide()">›</button>
+  </div>
+</section>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+</script>
+<script>
+  // Animated Counter
+  const counters = document.querySelectorAll('.counter');
+  counters.forEach(counter => {
+    counter.innerText = '0';
+    const updateCounter = () => {
+      const target = +counter.getAttribute('data-target');
+      const count = +counter.innerText;
+      const increment = target / 200;
+
+      if (count < target) {
+        counter.innerText = `${Math.ceil(count + increment)}`;
+        setTimeout(updateCounter, 10);
+      } else {
+        counter.innerText = target;
+      }
+    };
+    updateCounter();
+  });
+
+  // Newsletter popup close
+  function closePopup() {
+    document.getElementById('newsletterPopup').style.display = 'none';
+  }
+
+  // Carousel
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+
+  function showSlide(index) {
+    slides.forEach(slide => slide.classList.remove('active'));
+    slides[index].classList.add('active');
+  }
+
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }
+
+  function prevSlide() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(currentSlide);
+  }
+
+  setInterval(nextSlide, 5000);
+</script>
+
+</body>
+</html>
